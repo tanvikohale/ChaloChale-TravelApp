@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Trip - ChaloChale</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(15px);
+            background: linear-gradient(135deg, rgba(44, 94, 173, 0.95), rgba(21, 145, 220, 0.95)) !important;
+            box-shadow: 0 4px 20px rgba(44, 94, 173, 0.3);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff !important;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .navbar-brand:hover {
+            color: #c4e2f5 !important;
+            transform: scale(1.08);
+            text-shadow: 2px 2px 12px rgba(196, 226, 245, 0.5);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+            padding: 10px 15px !important;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover {
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #c4e2f5;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 60%;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            margin-top: 56px;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(44, 94, 173, 0.8), rgba(21, 145, 220, 0.7));
+        }
+
+        /* Booking Form */
+        .booking-form-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #2c5ead;
+            box-shadow: 0 0 0 0.2rem rgba(0, 184, 148, 0.25);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #00070b, #4bb8fa);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-weight: bold;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(59, 131, 224, 0.4);
+        }
+
+        /* Info Cards */
+        .info-card {
+            background: linear-gradient(135deg, #2c5ead 0%, #4bb8fa 100%);
+            border-radius: 20px;
+            padding: 30px;
+            color: white;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 110, 184, 0.4);
+        }
+
+        .info-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        /* Section Titles */
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 50px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #2c5ead;
+            border-radius: 2px;
+        }
+
+        /* Footer */
+        footer {
+           background: linear-gradient(135deg, #00aede 0%, #192443 100%) !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        /* Background Pattern */
+        .bg-pattern {
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(44, 94, 173, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(21, 145, 220, 0.1) 0%, transparent 50%);
+        }
+
+        /* Pulse Animation */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-pattern">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <!-- Navbar Section -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="./index.html">ChaloChale</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="./index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./destinations.html">Destinations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./packages.html">Packages</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="./booking.html">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./contact.html">Contact</a></li>
+                </ul>
+                <a href="./signUp.html" class="btn btn-outline-light ms-lg-3 px-4 py-2 rounded-pill fw-bold">SignUp</a>
+                <a href="./login.html" class="btn btn-light ms-lg-2 px-4 py-2 rounded-pill fw-bold text-primary">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner Section -->
+    <section class="hero-section position-relative">
+        <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100"></div>
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80" class="w-100" style="height: 500px; object-fit: cover;" alt="Booking Banner">
+        <div class="hero-content position-absolute top-50 start-50 translate-middle text-center text-white w-100" style="z-index: 2;">
+            <h1 class="display-3 fw-bold mb-3">
+                <i class="fas fa-calendar-check me-3"></i>Book Your Trip
+            </h1>
+            <p class="lead mb-4 fs-4">
+                Fill out the form below and let us plan your perfect vacation
+            </p>
+        </div>
+    </section>
+
+    <!-- Booking Form Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="booking-form-container">
+                        <h2 class="text-center fw-bold mb-5 section-title">Booking Details</h2>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><i class="fas fa-user me-2"></i>Full Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter your full name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><i class="fas fa-envelope me-2"></i>Email Address</label>
+                                    <input type="email" class="form-control" placeholder="Enter your email" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><i class="fas fa-phone me-2"></i>Phone Number</label>
+                                    <input type="tel" class="form-control" placeholder="Enter your phone number" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><i class="fas fa-map-marker-alt me-2"></i>Destination</label>
+                                    <select class="form-select" required>
+                                        <option value="">Select Destination</option>
+                                        <option value="Goa">Goa</option>
+                                        <option value="Manali">Manali</option>
+                                        <option value="Kerala">Kerala</option>
+                                        <option value="Jaipur">Jaipur</option>
+                                        <option value="Agra">Agra</option>
+                                        <option value="Kokan">Kokan</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><i class="fas fa-calendar me-2"></i>Travel Date</label>
+                                    <input type="date" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><i class="fas fa-calendar-check me-2"></i>Return Date</label>
+                                    <input type="date" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><i class="fas fa-users me-2"></i>Number of Adults</label>
+                                    <input type="number" class="form-control" placeholder="Number of adults" min="1" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><i class="fas fa-child me-2"></i>Number of Children</label>
+                                    <input type="number" class="form-control" placeholder="Number of children" min="0">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><i class="fas fa-concierge-bell me-2"></i>Package Type</label>
+                                    <select class="form-select" required>
+                                        <option value="">Select Package</option>
+                                        <option value="standard">Standard Package</option>
+                                        <option value="premium">Premium Package</option>
+                                        <option value="luxury">Luxury Package</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><i class="fas fa-bed me-2"></i>Room Type</label>
+                                    <select class="form-select" required>
+                                        <option value="">Select Room Type</option>
+                                        <option value="single">Single Room</option>
+                                        <option value="double">Double Room</option>
+                                        <option value="suite">Suite</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label"><i class="fas fa-comment me-2"></i>Special Requests</label>
+                                <textarea class="form-control" rows="4" placeholder="Any special requirements or requests?"></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-submit btn-lg pulse">
+                                    <i class="fas fa-paper-plane me-2"></i>Submit Booking Request
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5 section-title">Why Book With Us?</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="info-card">
+                        <i class="fas fa-shield-alt info-icon"></i>
+                        <h4 class="fw-bold mb-3">Secure Booking</h4>
+                        <p>Your payment and personal information is protected with advanced security measures.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="info-card">
+                        <i class="fas fa-headset info-icon"></i>
+                        <h4 class="fw-bold mb-3">24/7 Support</h4>
+                        <p>Our support team is available round the clock to assist you with any queries.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="info-card">
+                        <i class="fas fa-undo info-icon"></i>
+                        <h4 class="fw-bold mb-3">Easy Cancellation</h4>
+                        <p>Flexible cancellation policy with hassle-free refund process.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Info Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="fw-bold mb-4">Need Help With Booking?</h2>
+                    <p class="lead mb-4">Our travel experts are here to help you plan the perfect trip. Contact us for personalized assistance.</p>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="p-4 border rounded-3">
+                                <i class="fas fa-phone fa-2x mb-2" style="color: #2c5ead;"></i>
+                                <h5 class="fw-bold">Call Us</h5>
+                                <p>+91 98765 43210</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="p-4 border rounded-3">
+                                <i class="fas fa-envelope fa-2x mb-2" style="color: #2c5ead;"></i>
+                                <h5 class="fw-bold">Email Us</h5>
+                                <p>info@chalochale.com</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="p-4 border rounded-3">
+                                <i class="fas fa-map-marker-alt fa-2x mb-2" style="color: #2c5ead;"></i>
+                                <h5 class="fw-bold">Visit Us</h5>
+                                <p>Mumbai, India</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <p class="mb-0">
+                &copy; 2026 ChaloChale Travel App | Designed with Bootstrap
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
